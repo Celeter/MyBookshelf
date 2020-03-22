@@ -214,15 +214,21 @@ public class AnalyzeRule {
     public String getString(String ruleStr, boolean isUrl) throws Exception {
         if (isEmpty(ruleStr)) return null;
         List<SourceRule> ruleList = splitSourceRule(ruleStr);
-        return getString(ruleList, isUrl);
+        if (isUrl) {
+            return getString(ruleList, true);
+        }
+        else {
+            return getString(ruleList);
+        }
     }
 
     public String getString(List<SourceRule> ruleList) throws Exception {
         return getString(ruleList, false);
     }
 
-    public String getString(List<SourceRule> ruleList, boolean isUrl) throws Exception {
+    private String getString(List<SourceRule> ruleList, boolean isUrl) throws Exception {
         Object result = null;
+        String str;
         if (!ruleList.isEmpty()) result = object;
         for (SourceRule rule : ruleList) {
             if (!StringUtils.isTrimEmpty(rule.rule)) {
@@ -249,14 +255,15 @@ public class AnalyzeRule {
             }
         }
         if (result == null) return "";
-        if (isUrl && !StringUtils.isTrimEmpty(baseUrl)) {
-            return NetworkUtils.getAbsoluteURL(baseUrl, Entities.unescape(String.valueOf(result)));
-        }
         try {
-            return Entities.unescape(String.valueOf(result));
+            str = Entities.unescape(String.valueOf(result));
         } catch (Exception e) {
-            return String.valueOf(result);
+            str = String.valueOf(result);
         }
+        if (isUrl && !StringUtils.isTrimEmpty(baseUrl)) {
+            return NetworkUtils.getAbsoluteURL(baseUrl, str);
+        }
+        return str;
     }
 
     /**

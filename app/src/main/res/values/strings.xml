@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">阅读</string>
+    <string name="app_name">悦读</string>
     <string name="bookshelf">书架</string>
     <string name="last_read">最后阅读</string>
-    <string name="read_summary">让阅读成为一种习惯。</string>
+    <string name="read_summary">愿你出走半生，归来仍是少年。</string>
     <string name="update_log">更新日志</string>
-    <string name="receiving_shared_label">阅读·搜索</string>
+    <string name="receiving_shared_label">悦读搜</string>
     <string name="bookshelf_empty">书架还空着，先去添加吧！</string>
     <string name="action_search">搜索</string>
     <string name="action_download">下载任务</string>

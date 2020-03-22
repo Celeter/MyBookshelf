@@ -30,6 +30,20 @@
             app:tint="@color/tv_text_default" />
     </group>
 
+    <group android:id="@+id/drawer_menu_backup">
+        <item
+            android:id="@+id/action_backup"
+            android:icon="@drawable/ic_backup"
+            android:title="@string/backup"
+            app:tint="@color/tv_text_default" />
+
+        <item
+            android:id="@+id/action_restore"
+            android:icon="@drawable/ic_restore"
+            android:title="@string/restore"
+            app:tint="@color/tv_text_default" />
+    </group>
+
     <group android:id="@+id/drawer_menu_setting">
         <item
             android:id="@+id/action_setting"
@@ -43,25 +57,11 @@
             android:title="@string/about"
             app:tint="@color/tv_text_default" />
 
-        <item
+        <!--<item
             android:id="@+id/action_donate"
             android:icon="@drawable/ic_donate"
             android:title="@string/donate"
-            app:tint="@color/tv_text_default" />
-    </group>
-
-    <group android:id="@+id/drawer_menu_backup">
-        <item
-            android:id="@+id/action_backup"
-            android:icon="@drawable/ic_backup"
-            android:title="@string/backup"
-            app:tint="@color/tv_text_default" />
-
-        <item
-            android:id="@+id/action_restore"
-            android:icon="@drawable/ic_restore"
-            android:title="@string/restore"
-            app:tint="@color/tv_text_default" />
+            app:tint="@color/tv_text_default" />-->
     </group>
 
 </menu>

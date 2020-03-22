@@ -44,6 +44,9 @@
     <string name="web_service">web服務</string>
     <string name="web_edit_source">web編輯書源</string>
     <string name="http_ip">http://%s:%d</string>
+    <string name="web_service_starting_hint_short">正在啟動服務</string>
+    <string name="web_service_starting_hint_long">正在啟動服務\n具体資訊查看通知欄</string>
+    <string name="web_service_already_started_hint">服務已啟動</string>
     <string name="download_offline">離線下載</string>
     <string name="download_offline_t">離線下載</string>
     <string name="download_offline_s">下載選擇的章節到本地</string>
@@ -428,6 +431,10 @@
     <string name="content_padding">正文邊距</string>
     <string name="tip_padding">Tip邊距</string>
     <string name="text_letter_spacing">字距</string>
+    <string name="default_path">默认路径</string>
+    <string name="sys_folder_picker">系统文件夹选择器</string>
+    <string name="app_folder_picker">自带选择器\n(Android10以上因权限限制可能无法使用)</string>
+    <string name="a10_permission_toast">Android10以上因权限限制可能无法读写文件</string>
     <string name="e_ink_mode">E-Ink 模式</string>
     <string name="e_ink_mode_detail">去除動畫,優化電紙書使用體驗</string>
     <string name="web_menu">Web服務</string>
@@ -448,4 +455,16 @@
     <string name="layout_grid3">網格視圖三列</string>
     <string name="layout_grid4">網格視圖四列</string>
     <string name="all_source">全部書源</string>
+    <string name="is_enable">启用</string>
+    <string name="cannot_empty">输入不能为空</string>
+    <string name="clear_find_cache">清空发现暫存資料</string>
+    <string name="edit_find">编辑发现</string>
+    <string name="cover_change_source">封面換源</string>
+    <string name="select_local_image">选择本地图片</string>
+    <string name="refresh_cover">刷新封面</string>
+    <string name="c_page_key">自定义翻页按键</string>
+    <string name="custom_page_key">自定义翻页按键</string>
+    <string name="prev_page_key">上一页按键</string>
+    <string name="next_page_key">下一页按键</string>
+    <string name="select_folder">选择文件夹</string>
 </resources>

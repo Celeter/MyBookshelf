@@ -146,7 +146,7 @@ object BackupRestoreUi : Backup.CallBack, Restore.CallBack {
                     override fun onSuccess(strings: ArrayList<String>) {
                         if (!showRestoreDialog(activity, strings, this@BackupRestoreUi)) {
                             val path = getBackupPath()
-                            if (TextUtils.isEmpty(path)) {
+                            if (path.isNullOrEmpty()) {
                                 selectRestoreFolder(activity)
                             } else {
                                 if (path.isContentPath()) {

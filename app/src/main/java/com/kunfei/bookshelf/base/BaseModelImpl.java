@@ -100,9 +100,9 @@ public class BaseModelImpl {
         return chain -> {
             Request request = chain.request()
                     .newBuilder()
-                    .addHeader("Keep-Alive", "300")
-                    .addHeader("Connection", "Keep-Alive")
-                    .addHeader("Cache-Control", "no-cache")
+                    //.addHeader("Keep-Alive", "300")
+                    //.addHeader("Connection", "Keep-Alive")
+                    //.addHeader("Cache-Control", "no-cache")
                     .build();
             return chain.proceed(request);
         };

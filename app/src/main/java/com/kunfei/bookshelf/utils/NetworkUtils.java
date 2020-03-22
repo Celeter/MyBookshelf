@@ -106,8 +106,12 @@ public class NetworkUtils {
     }
 
     public static boolean isUrl(String urlStr) {
-        String regex = "^(https?)://.+$";//设置正则表达式
-        return urlStr.matches(regex);
+        //String regex = "^(https?)://.+$";//设置正则表达式
+        //return urlStr.matches(regex);
+        if (urlStr.isEmpty())
+            return false;
+        else
+            return urlStr.startsWith("https://") || urlStr.startsWith("http://");
     }
 
     /**
