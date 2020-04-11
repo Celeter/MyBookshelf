@@ -89,7 +89,7 @@ public class AnalyzeByRegex {
                 bookInfoBean.setAuthor(StringUtils.formatHtml(ruleVal.get("BookAuthor")));
             if (!isEmpty(ruleVal.get("LastChapter"))) bookShelfBean.setLastChapterName(ruleVal.get("LastChapter"));
             if (!isEmpty(ruleVal.get("Introduce")))
-                bookInfoBean.setIntroduce(StringUtils.formatHtml(ruleVal.get("Introduce")));
+                bookInfoBean.setIntroduce(ruleVal.get("Introduce"));
             if (!isEmpty(ruleVal.get("CoverUrl"))) bookInfoBean.setCoverUrl(ruleVal.get("CoverUrl"));
             if (!isEmpty(ruleVal.get("ChapterUrl"))) bookInfoBean.setChapterUrl(NetworkUtils.getAbsoluteURL(baseUrl, ruleVal.get("ChapterUrl")));
             else bookInfoBean.setChapterUrl(baseUrl);
@@ -104,7 +104,7 @@ public class AnalyzeByRegex {
             Debug.printLog(tag, "┌获取最新章节");
             Debug.printLog(tag, "└" + bookShelfBean.getLastChapterName());
             Debug.printLog(tag, "┌获取简介内容");
-            Debug.printLog(tag, "└" + bookInfoBean.getIntroduce());
+            Debug.printLog(tag, 1, "└" + bookInfoBean.getIntroduce(), true, true);
             Debug.printLog(tag, "┌获取封面网址");
             Debug.printLog(tag, "└" + bookInfoBean.getCoverUrl());
             Debug.printLog(tag, "┌获取目录网址");

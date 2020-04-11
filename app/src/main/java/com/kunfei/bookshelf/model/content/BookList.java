@@ -363,8 +363,8 @@ class BookList {
                 }
                 // 保存当前节点的书籍信息
                 item.setSearchInfo(
-                        ruleVal.get("ruleName"),        // 保存书名
-                        ruleVal.get("ruleAuthor"),      // 保存作者
+                        StringUtils.formatHtml(ruleVal.get("ruleName")),        // 保存书名
+                        StringUtils.formatHtml(ruleVal.get("ruleAuthor")),      // 保存作者
                         ruleVal.get("ruleKind"),        // 保存分类
                         ruleVal.get("ruleLastChapter"), // 保存终章
                         ruleVal.get("ruleIntroduce"),   // 保存简介
