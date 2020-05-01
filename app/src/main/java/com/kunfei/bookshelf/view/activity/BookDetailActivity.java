@@ -34,6 +34,7 @@ import com.kunfei.bookshelf.bean.BookInfoBean;
 import com.kunfei.bookshelf.bean.BookShelfBean;
 import com.kunfei.bookshelf.bean.BookSourceBean;
 import com.kunfei.bookshelf.bean.SearchBookBean;
+import com.kunfei.bookshelf.constant.AppConstant;
 import com.kunfei.bookshelf.constant.RxBusTag;
 import com.kunfei.bookshelf.help.BlurTransformation;
 import com.kunfei.bookshelf.help.BookshelfHelp;
@@ -249,6 +250,15 @@ public class BookDetailActivity extends MBaseActivity<BookDetailContract.Present
         mPresenter.getBookShelfInfo();
     }
 
+    private void export_book() {
+//      BookShelfBean bookShelfBean = mPresenter.getBookShelf();
+        if (BookshelfHelp.saveBook(bookShelfBean)) {
+            toast("成功书籍导出至:\n" + AppConstant.BOOK_EXPORT_PATH);
+        } else {
+            toast("书籍导出失败");
+        }
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void bindEvent() {
@@ -322,6 +332,7 @@ public class BookDetailActivity extends MBaseActivity<BookDetailContract.Present
             }
             if (!mPresenter.getBookShelf().getTag().equals(BookShelfBean.LOCAL_TAG)) {
                 popupMenu.getMenu().add(Menu.NONE, R.id.menu_edit, Menu.NONE, R.string.edit_book_source);
+                popupMenu.getMenu().add(Menu.NONE, R.id.menu_export_book, Menu.NONE, R.string.export_book);
             }
             popupMenu.setOnMenuItemClickListener(menuItem -> {
                 switch (menuItem.getItemId()) {
@@ -341,6 +352,11 @@ public class BookDetailActivity extends MBaseActivity<BookDetailContract.Present
                         if (sourceBean != null) {
                             SourceEditActivity.startThis(this, sourceBean);
                         }
+                        break;
+                    case R.id.menu_export_book:
+                        export_book();
+                        break;
+                    default:
                         break;
                 }
                 return true;

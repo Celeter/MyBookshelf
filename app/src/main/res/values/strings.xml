@@ -279,6 +279,7 @@
     <string name="tip_margin_change">Tip边距跟随边距调整</string>
     <string name="disable_update">禁止更新</string>
     <string name="allow_update">允许更新</string>
+    <string name="export_book">导出书籍</string>
     <string name="revert_selection">反转选择</string>
     <string name="search_book_key">搜索书名、作者</string>
     <string name="debug_hint">书名、作者、URL</string>

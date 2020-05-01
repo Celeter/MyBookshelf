@@ -26,6 +26,7 @@ public class AppConstant {
     public static final String FORMAT_FILE_DATE = "yyyy-MM-dd";
     //BookCachePath (因为getCachePath引用了Context，所以必须是静态变量，不能够是静态常量)
     public static String BOOK_CACHE_PATH = MApplication.downloadPath + File.separator + "book_cache" + File.separator;
+    public static String BOOK_EXPORT_PATH = MApplication.downloadPath + File.separator + "book_export" + File.separator;
 
     public static Type MAP_STRING = new TypeToken<Map<String, String>>() {
     }.getType();
