@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.kunfei.bookshelf.utils.StringUtils.formatHtml;
 
 /**
  * Created by GKF on 2018/1/18.
@@ -142,10 +141,11 @@ public class BookshelfHelp {
             writer.write("作者：" + author + "\n\n");
             writer.write("来源：" + bookShelfBean.getBookInfoBean().getOrigin());
             writer.write("(" + noteUrl + ")\n\n");
-            writer.write("简介：\n" + formatHtml(bookShelfBean.getBookInfoBean().getIntroduce()) + "\n\n");
+            writer.write("简介：\n" + StringUtils.formatHtml(bookShelfBean.getBookInfoBean().getIntroduce(), true));
+            writer.write("\n\n\n\n");
             for (BookChapterBean chapter : chapterList) {
                 String content = getChapterCache(bookShelfBean, chapter);
-                if (content != null) {
+                if (!TextUtils.isEmpty(content)) {
                     writer.write("\n");
                     writer.write(content);
                 }

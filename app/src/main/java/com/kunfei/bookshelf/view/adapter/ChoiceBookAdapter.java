@@ -87,7 +87,7 @@ public class ChoiceBookAdapter extends RefreshRecyclerViewAdapter {
         if (isTrimEmpty(book.getIntroduce())) {
             myViewHolder.tvIntroduce.setVisibility(View.GONE);
         } else {
-            myViewHolder.tvIntroduce.setText(StringUtils.formatHtml(searchBooks.get(position).getIntroduce()));
+            myViewHolder.tvIntroduce.setText(StringUtils.formatHtml(searchBooks.get(position).getIntroduce(), true));
             myViewHolder.tvIntroduce.setVisibility(View.VISIBLE);
         }
 

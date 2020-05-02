@@ -10,6 +10,7 @@ import com.kunfei.bookshelf.bean.BaseChapterBean;
 import com.kunfei.bookshelf.bean.BookContentBean;
 import com.kunfei.bookshelf.bean.BookShelfBean;
 import com.kunfei.bookshelf.bean.BookSourceBean;
+import com.kunfei.bookshelf.constant.BookType;
 import com.kunfei.bookshelf.dao.BookChapterBeanDao;
 import com.kunfei.bookshelf.model.analyzeRule.AnalyzeRule;
 import com.kunfei.bookshelf.model.analyzeRule.AnalyzeUrl;
@@ -121,11 +122,14 @@ class BookContent {
 
         analyzer.setContent(s, NetworkUtils.getAbsoluteURL(baseUrl, chapterUrl));
         Debug.printLog(tag, 1, "┌解析正文内容");
-        if (ruleBookContent.equals("all") || ruleBookContent.contains("@all")) {
+        if (ruleBookContent.equals("all") || ruleBookContent.contains("@all") || ruleBookContent.contains("</js>all")) {
             webContentBean.content = analyzer.getString(ruleBookContent);
-        }
-        else {
-            webContentBean.content = StringUtils.formatHtml(analyzer.getString(ruleBookContent));
+        } else {
+            if (bookSourceBean.getBookSourceType().equals(BookType.AUDIO)) {
+                webContentBean.content = analyzer.getString(ruleBookContent);
+            } else {
+                webContentBean.content = StringUtils.formatHtml(analyzer.getString(ruleBookContent), true);
+            }
         }
         Debug.printLog(tag, 1, "└" + webContentBean.content);
         String nextUrlRule = bookSourceBean.getRuleContentUrlNext();
