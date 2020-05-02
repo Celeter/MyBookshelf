@@ -92,7 +92,7 @@ class BookInfo {
 
                 Debug.printLog(tag, "┌获取简介");
                 String bkIntro = analyzer.getString(bookSourceBean.getRuleIntroduce());
-                String bookIntroduce = isEmpty(bkIntro) ? "" : "\n" + bkIntro;
+                String bookIntroduce = isEmpty(bkIntro) ? "" : bkIntro;
                 if (!isEmpty(bookIntroduce)) bookInfoBean.setIntroduce(bookIntroduce);
                 Debug.printLog(tag, 1, "└" + bookIntroduce, true, true);
 

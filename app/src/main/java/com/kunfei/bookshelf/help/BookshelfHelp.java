@@ -124,23 +124,25 @@ public class BookshelfHelp {
     }
 
     /**
-     * 存储书籍
+     * 导出书籍
      */
-    public static synchronized boolean saveBook(BookShelfBean bookShelfBean) {
+    public static synchronized boolean exportBook(BookShelfBean bookShelfBean) {
         if (bookShelfBean == null) {
             return false;
         }
         String bookName = bookShelfBean.getName();
         String author = bookShelfBean.getAuthor();
-        String intro = formatHtml(bookShelfBean.getBookInfoBean().getIntroduce());
+        String noteUrl = bookShelfBean.getNoteUrl();
         File file = getBookFile(bookName, author);
 
-        List<BookChapterBean> chapterList = getChapterList(bookShelfBean.getNoteUrl());
+        List<BookChapterBean> chapterList = getChapterList(noteUrl);
         //获取流并存储
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(bookName + "\n");
             writer.write("作者：" + author + "\n\n");
-            writer.write("简介：\n" + intro + "\n\n");
+            writer.write("来源：" + bookShelfBean.getBookInfoBean().getOrigin());
+            writer.write("(" + noteUrl + ")\n\n");
+            writer.write("简介：\n" + formatHtml(bookShelfBean.getBookInfoBean().getIntroduce()) + "\n\n");
             for (BookChapterBean chapter : chapterList) {
                 String content = getChapterCache(bookShelfBean, chapter);
                 if (content != null) {

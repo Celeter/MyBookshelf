@@ -251,8 +251,8 @@ public class BookDetailActivity extends MBaseActivity<BookDetailContract.Present
     }
 
     private void export_book() {
-//      BookShelfBean bookShelfBean = mPresenter.getBookShelf();
-        if (BookshelfHelp.saveBook(bookShelfBean)) {
+        // BookShelfBean bookShelfBean = mPresenter.getBookShelf();
+        if (BookshelfHelp.exportBook(bookShelfBean)) {
             toast("成功书籍导出至:\n" + AppConstant.BOOK_EXPORT_PATH);
         } else {
             toast("书籍导出失败");
@@ -322,15 +322,15 @@ public class BookDetailActivity extends MBaseActivity<BookDetailContract.Present
             PopupMenu popupMenu = new PopupMenu(this, view, Gravity.END);
             if (!mPresenter.getBookShelf().getTag().equals(BookShelfBean.LOCAL_TAG)) {
                 popupMenu.getMenu().add(Menu.NONE, R.id.menu_refresh, Menu.NONE, R.string.refresh);
-            }
-            if (mPresenter.getInBookShelf() && !mPresenter.getBookShelf().getTag().equals(BookShelfBean.LOCAL_TAG)) {
-                if (mPresenter.getBookShelf().getAllowUpdate()) {
-                    popupMenu.getMenu().add(Menu.NONE, R.id.menu_disable_update, Menu.NONE, R.string.disable_update);
-                } else {
-                    popupMenu.getMenu().add(Menu.NONE, R.id.menu_allow_update, Menu.NONE, R.string.allow_update);
+
+                if (mPresenter.getInBookShelf()) {
+                    if (mPresenter.getBookShelf().getAllowUpdate()) {
+                        popupMenu.getMenu().add(Menu.NONE, R.id.menu_disable_update, Menu.NONE, R.string.disable_update);
+                    } else {
+                        popupMenu.getMenu().add(Menu.NONE, R.id.menu_allow_update, Menu.NONE, R.string.allow_update);
+                    }
                 }
-            }
-            if (!mPresenter.getBookShelf().getTag().equals(BookShelfBean.LOCAL_TAG)) {
+
                 popupMenu.getMenu().add(Menu.NONE, R.id.menu_edit, Menu.NONE, R.string.edit_book_source);
                 popupMenu.getMenu().add(Menu.NONE, R.id.menu_export_book, Menu.NONE, R.string.export_book);
             }
