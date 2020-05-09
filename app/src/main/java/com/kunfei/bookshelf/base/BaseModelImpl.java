@@ -40,11 +40,17 @@ public class BaseModelImpl {
 
     public Observable<Response<String>> getResponseO(AnalyzeUrl analyzeUrl) {
         switch (analyzeUrl.getUrlMode()) {
-            case POST:
+            case POST_MAP:
                 return getRetrofitString(analyzeUrl.getHost(), analyzeUrl.getCharCode())
                         .create(IHttpPostApi.class)
                         .postMap(analyzeUrl.getPath(),
                                 analyzeUrl.getQueryMap(),
+                                analyzeUrl.getHeaderMap());
+            case POST_JSON:
+                return getRetrofitString(analyzeUrl.getHost(), analyzeUrl.getCharCode())
+                        .create(IHttpPostApi.class)
+                        .postJson(analyzeUrl.getPath(),
+                                analyzeUrl.getQueryJson(),
                                 analyzeUrl.getHeaderMap());
             case GET:
                 return getRetrofitString(analyzeUrl.getHost(), analyzeUrl.getCharCode())
@@ -178,7 +184,10 @@ public class BaseModelImpl {
                     }
                 });
                 switch (analyzeUrl.getUrlMode()) {
-                    case POST:
+                    case POST_JSON:
+                        webView.postUrl(analyzeUrl.getUrl(), analyzeUrl.getPostDataJson());
+                        break;
+                    case POST_MAP:
                         webView.postUrl(analyzeUrl.getUrl(), analyzeUrl.getPostData());
                         break;
                     case GET:

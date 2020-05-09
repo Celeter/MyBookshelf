@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.greenrobot.greendao'
-apply plugin: 'io.fabric'
-apply plugin: "de.timfreiheit.resourceplaceholders"
+apply plugin: 'de.timfreiheit.resourceplaceholders'
+//apply plugin: 'io.fabric'
 
 static def releaseTime() {
     return new Date().format("yy.MMddHH", TimeZone.getTimeZone("GMT+8"))
@@ -26,7 +26,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.gedoor.monkeybook"
+        applicationId "io.celeter.yuedu"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 10000 + gitCommits
@@ -83,12 +83,12 @@ dependencies {
     implementation "org.jetbrains.anko:anko-sdk27-listeners:$anko_version"
 
     //fireBase
-    implementation 'com.google.firebase:firebase-core:17.4.0'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    //implementation 'com.google.firebase:firebase-core:17.4.0'
+    //implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     //androidX
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta5'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.media:media:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -156,7 +156,7 @@ greendao {
     targetGenDir 'src/main/java'
 }
 
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 
 afterEvaluate {
     for (Task task : project.tasks.matching { it.name.startsWith('crashlyticsUploadDeobs') }) {

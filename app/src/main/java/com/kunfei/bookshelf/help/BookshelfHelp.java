@@ -47,7 +47,7 @@ public class BookshelfHelp {
     }
 
     @SuppressLint("DefaultLocale")
-    public static String getCacheFileName(int chapterIndex, String chapterName) {
+    private static String getCacheFileName(int chapterIndex, String chapterName) {
         return String.format("%05d-%s", chapterIndex, formatFolderName(chapterName));
     }
 
@@ -122,11 +122,52 @@ public class BookshelfHelp {
     }
 
     /**
+     * 导出书籍
+     */
+    public static synchronized boolean exportBook(BookShelfBean bookShelfBean) {
+        if (bookShelfBean == null) {
+            return false;
+        }
+        String bookName = bookShelfBean.getName();
+        String author = bookShelfBean.getAuthor();
+        String noteUrl = bookShelfBean.getNoteUrl();
+        File file = getBookFile(bookName, author);
+
+        List<BookChapterBean> chapterList = getChapterList(noteUrl);
+        //获取流并存储
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write(bookName + "\n");
+            writer.write("作者：" + author + "\n\n");
+            writer.write("来源：" + bookShelfBean.getBookInfoBean().getOrigin());
+            writer.write("(" + noteUrl + ")\n\n");
+            writer.write("简介：\n" + StringUtils.formatHtml(bookShelfBean.getBookInfoBean().getIntroduce(), true));
+            writer.write("\n\n\n\n");
+            for (BookChapterBean chapter : chapterList) {
+                String content = getChapterCache(bookShelfBean, chapter);
+                if (!TextUtils.isEmpty(content)) {
+                    writer.write("\n");
+                    writer.write(content);
+                }
+            }
+            writer.flush();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
      * 创建或获取存储文件
      */
-    public static File getBookFile(String folderName, int index, String fileName) {
+    private static File getBookFile(String folderName, int index, String fileName) {
         return FileHelp.createFileIfNotExist(AppConstant.BOOK_CACHE_PATH + formatFolderName(folderName)
                 + File.separator + getCacheFileName(index, fileName) + FileHelp.SUFFIX_NB);
+    }
+
+    private static File getBookFile(String bookName, String author) {
+        return FileHelp.createFileIfNotExist(AppConstant.BOOK_EXPORT_PATH + File.separator
+                + formatFolderName(bookName + "_作者：" + author) + FileHelp.SUFFIX_TXT);
     }
 
     private static String formatFolderName(String folderName) {
@@ -261,7 +302,7 @@ public class BookshelfHelp {
     /**
      * 移除书籍
      */
-    public static void removeFromBookShelf(BookShelfBean bookShelfBean, boolean keepCaches) {
+    private static void removeFromBookShelf(BookShelfBean bookShelfBean, boolean keepCaches) {
         DbHelper.getDaoSession().getBookShelfBeanDao().deleteByKey(bookShelfBean.getNoteUrl());
         DbHelper.getDaoSession().getBookInfoBeanDao().deleteByKey(bookShelfBean.getBookInfoBean().getNoteUrl());
         delChapterList(bookShelfBean.getNoteUrl());

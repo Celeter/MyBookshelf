@@ -88,8 +88,7 @@ public class AnalyzeByRegex {
             if (!isEmpty(ruleVal.get("BookAuthor")))
                 bookInfoBean.setAuthor(StringUtils.formatHtml(ruleVal.get("BookAuthor")));
             if (!isEmpty(ruleVal.get("LastChapter"))) bookShelfBean.setLastChapterName(ruleVal.get("LastChapter"));
-            if (!isEmpty(ruleVal.get("Introduce")))
-                bookInfoBean.setIntroduce(StringUtils.formatHtml(ruleVal.get("Introduce")));
+            if (!isEmpty(ruleVal.get("Introduce"))) bookInfoBean.setIntroduce(ruleVal.get("Introduce"));
             if (!isEmpty(ruleVal.get("CoverUrl"))) bookInfoBean.setCoverUrl(ruleVal.get("CoverUrl"));
             if (!isEmpty(ruleVal.get("ChapterUrl"))) bookInfoBean.setChapterUrl(NetworkUtils.getAbsoluteURL(baseUrl, ruleVal.get("ChapterUrl")));
             else bookInfoBean.setChapterUrl(baseUrl);

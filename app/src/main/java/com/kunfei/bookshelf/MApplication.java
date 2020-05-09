@@ -145,6 +145,7 @@ public class MApplication extends Application {
             downloadPath = path;
         }
         AppConstant.BOOK_CACHE_PATH = downloadPath + File.separator + "book_cache" + File.separator;
+        AppConstant.BOOK_EXPORT_PATH = downloadPath + File.separator + "book_export" + File.separator;
         configPreferences.edit()
                 .putString(getString(R.string.pk_download_path), path)
                 .apply();
@@ -155,7 +156,7 @@ public class MApplication extends Application {
     }
 
     public boolean getDonateHb() {
-        return donateHb || BuildConfig.DEBUG;
+        return true;
     }
 
     public void upDonateHb() {

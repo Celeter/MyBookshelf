@@ -34,6 +34,7 @@ import com.kunfei.bookshelf.bean.BookInfoBean;
 import com.kunfei.bookshelf.bean.BookShelfBean;
 import com.kunfei.bookshelf.bean.BookSourceBean;
 import com.kunfei.bookshelf.bean.SearchBookBean;
+import com.kunfei.bookshelf.constant.AppConstant;
 import com.kunfei.bookshelf.constant.RxBusTag;
 import com.kunfei.bookshelf.help.BlurTransformation;
 import com.kunfei.bookshelf.help.BookshelfHelp;
@@ -139,7 +140,7 @@ public class BookDetailActivity extends MBaseActivity<BookDetailContract.Present
             String origin = TextUtils.isEmpty(searchBookBean.getOrigin()) ? "未知" : searchBookBean.getOrigin();
             tvOrigin.setText(origin);
             tvChapter.setText(searchBookBean.getLastChapter());  // newest
-            tvIntro.setText(StringUtils.formatHtml(searchBookBean.getIntroduce()));
+            tvIntro.setText(StringUtils.formatHtml(searchBookBean.getIntroduce(), true));
             tvShelf.setText(R.string.add_to_shelf);
             tvRead.setText(R.string.start_read);
             tvRead.setOnClickListener(v -> {
@@ -186,7 +187,7 @@ public class BookDetailActivity extends MBaseActivity<BookDetailContract.Present
                     mPresenter.addToBookShelf();
                 });
             }
-            tvIntro.setText(StringUtils.formatHtml(bookInfoBean.getIntroduce()));
+            tvIntro.setText(StringUtils.formatHtml(bookInfoBean.getIntroduce(), true));
             if (tvIntro.getVisibility() != View.VISIBLE) {
                 tvIntro.setVisibility(View.VISIBLE);
             }
@@ -247,6 +248,15 @@ public class BookDetailActivity extends MBaseActivity<BookDetailContract.Present
         mPresenter.getBookShelf().getBookInfoBean().setBookInfoHtml(null);
         mPresenter.getBookShelf().getBookInfoBean().setChapterListHtml(null);
         mPresenter.getBookShelfInfo();
+    }
+
+    private void export_book() {
+        // BookShelfBean bookShelfBean = mPresenter.getBookShelf();
+        if (BookshelfHelp.exportBook(bookShelfBean)) {
+            toast("成功书籍导出至:\n" + AppConstant.BOOK_EXPORT_PATH);
+        } else {
+            toast("书籍导出失败");
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -312,16 +322,17 @@ public class BookDetailActivity extends MBaseActivity<BookDetailContract.Present
             PopupMenu popupMenu = new PopupMenu(this, view, Gravity.END);
             if (!mPresenter.getBookShelf().getTag().equals(BookShelfBean.LOCAL_TAG)) {
                 popupMenu.getMenu().add(Menu.NONE, R.id.menu_refresh, Menu.NONE, R.string.refresh);
-            }
-            if (mPresenter.getInBookShelf() && !mPresenter.getBookShelf().getTag().equals(BookShelfBean.LOCAL_TAG)) {
-                if (mPresenter.getBookShelf().getAllowUpdate()) {
-                    popupMenu.getMenu().add(Menu.NONE, R.id.menu_disable_update, Menu.NONE, R.string.disable_update);
-                } else {
-                    popupMenu.getMenu().add(Menu.NONE, R.id.menu_allow_update, Menu.NONE, R.string.allow_update);
+
+                if (mPresenter.getInBookShelf()) {
+                    if (mPresenter.getBookShelf().getAllowUpdate()) {
+                        popupMenu.getMenu().add(Menu.NONE, R.id.menu_disable_update, Menu.NONE, R.string.disable_update);
+                    } else {
+                        popupMenu.getMenu().add(Menu.NONE, R.id.menu_allow_update, Menu.NONE, R.string.allow_update);
+                    }
                 }
-            }
-            if (!mPresenter.getBookShelf().getTag().equals(BookShelfBean.LOCAL_TAG)) {
+
                 popupMenu.getMenu().add(Menu.NONE, R.id.menu_edit, Menu.NONE, R.string.edit_book_source);
+                popupMenu.getMenu().add(Menu.NONE, R.id.menu_export_book, Menu.NONE, R.string.export_book);
             }
             popupMenu.setOnMenuItemClickListener(menuItem -> {
                 switch (menuItem.getItemId()) {
@@ -341,6 +352,11 @@ public class BookDetailActivity extends MBaseActivity<BookDetailContract.Present
                         if (sourceBean != null) {
                             SourceEditActivity.startThis(this, sourceBean);
                         }
+                        break;
+                    case R.id.menu_export_book:
+                        export_book();
+                        break;
+                    default:
                         break;
                 }
                 return true;

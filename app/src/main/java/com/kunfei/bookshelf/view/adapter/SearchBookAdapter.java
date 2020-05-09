@@ -98,7 +98,7 @@ public class SearchBookAdapter extends RefreshRecyclerViewAdapter {
         if (isTrimEmpty(book.getIntroduce())) {
             myViewHolder.tvIntroduce.setVisibility(View.GONE);
         } else {
-            myViewHolder.tvIntroduce.setText(StringUtils.formatHtml(book.getIntroduce()));
+            myViewHolder.tvIntroduce.setText(StringUtils.formatHtml(book.getIntroduce(), true));
             myViewHolder.tvIntroduce.setVisibility(View.VISIBLE);
         }
         myViewHolder.tvOriginNum.setText(String.format("共%d个源", book.getOriginNum()));

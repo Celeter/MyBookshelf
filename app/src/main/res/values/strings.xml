@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">阅读</string>
+    <string name="app_name">悦读</string>
     <string name="bookshelf">书架</string>
     <string name="last_read">最后阅读</string>
-    <string name="read_summary">让阅读成为一种习惯。</string>
+    <string name="read_summary">让悦读成为一种习惯。</string>
     <string name="update_log">更新日志</string>
-    <string name="receiving_shared_label">阅读·搜索</string>
+    <string name="receiving_shared_label">悦读搜</string>
     <string name="bookshelf_empty">书架还空着，先去添加吧！</string>
     <string name="action_search">搜索</string>
     <string name="action_download">下载任务</string>
@@ -279,6 +279,7 @@
     <string name="tip_margin_change">Tip边距跟随边距调整</string>
     <string name="disable_update">禁止更新</string>
     <string name="allow_update">允许更新</string>
+    <string name="export_book">导出书籍</string>
     <string name="revert_selection">反转选择</string>
     <string name="search_book_key">搜索书名、作者</string>
     <string name="debug_hint">书名、作者、URL</string>

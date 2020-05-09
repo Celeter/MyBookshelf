@@ -382,16 +382,15 @@ public class AnalyzeByJSoup {
             switch (lastRule) {
                 case "text":
                     for (Element element : elements) {
-                        String text = element.text();
-                        cText.add(text);
+                        cText.add(element.text());
                     }
                     textS.add(TextUtils.join("\n", cText));
                     break;
                 case "textNodes":
                     for (Element element : elements) {
                         List<TextNode> contentEs = element.textNodes();
-                        for (int i = 0; i < contentEs.size(); i++) {
-                            String temp = contentEs.get(i).text().trim();
+                        for (TextNode item : contentEs) {
+                            String temp = item.text().trim();
                             if (!isEmpty(temp)) {
                                 cText.add(temp);
                             }
