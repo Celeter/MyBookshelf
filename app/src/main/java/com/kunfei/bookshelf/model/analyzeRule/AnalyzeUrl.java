@@ -22,6 +22,9 @@ import java.util.regex.Pattern;
 
 import javax.script.SimpleBindings;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+
 import static com.kunfei.bookshelf.constant.AppConstant.EXP_PATTERN;
 import static com.kunfei.bookshelf.constant.AppConstant.JS_PATTERN;
 import static com.kunfei.bookshelf.constant.AppConstant.MAP_STRING;
@@ -34,13 +37,14 @@ import static com.kunfei.bookshelf.utils.NetworkUtils.headerPattern;
  */
 @Keep
 public class AnalyzeUrl {
-    private static final Pattern pagePattern = Pattern.compile("\\{(.*?)\\}");
+    private static final Pattern pagePattern = Pattern.compile("<([^>]*)>");
     private String baseUrl;
     private String url;
     private String host;
     private String urlPath;
     private String queryStr;
     private Map<String, String> queryMap = new LinkedHashMap<>();
+    private String queryJson = "{}";
     private Map<String, String> headerMap = new HashMap<>();
     private String charCode = null;
     private UrlMode urlMode = UrlMode.DEFAULT;
@@ -89,7 +93,11 @@ public class AnalyzeUrl {
         //分离post参数
         String[] ruleUrlS = ruleUrl.split("@");
         if (ruleUrlS.length > 1) {
-            urlMode = UrlMode.POST;
+            if (ruleUrlS[1].startsWith("{") || ruleUrlS[1].startsWith("[")) {
+                urlMode = UrlMode.POST_JSON;
+            } else {
+                urlMode = UrlMode.POST_MAP;
+            }
         } else {
             //分离get参数
             ruleUrlS = ruleUrlS[0].split("\\?");
@@ -98,7 +106,9 @@ public class AnalyzeUrl {
             }
         }
         generateUrlPath(ruleUrlS[0]);
-        if (urlMode != UrlMode.DEFAULT) {
+        if (urlMode == UrlMode.POST_JSON) {
+            analyzeQueryJson(ruleUrlS[1]);
+        } else if (urlMode != UrlMode.DEFAULT) {
             analyzeQuery(ruleUrlS[1]);
         }
     }
@@ -215,6 +225,11 @@ public class AnalyzeUrl {
         }
     }
 
+    private void analyzeQueryJson(String allQuery) throws Exception {
+        queryStr = allQuery;
+        queryJson = allQuery;
+    }
+
     /**
      * 拆分规则
      */
@@ -280,6 +295,11 @@ public class AnalyzeUrl {
         return queryMap;
     }
 
+    public RequestBody getQueryJson() {
+        MediaType jsonType = MediaType.parse("application/json; charset=utf-8");
+        return RequestBody.create(jsonType, queryJson);
+    }
+
     public Map<String, String> getHeaderMap() {
         return headerMap;
     }
@@ -298,11 +318,15 @@ public class AnalyzeUrl {
         return builder.toString().getBytes();
     }
 
+    public byte[] getPostDataJson() {
+        return queryJson.getBytes();
+    }
+
     public UrlMode getUrlMode() {
         return urlMode;
     }
 
     public enum UrlMode {
-        GET, POST, DEFAULT
+        GET, POST_MAP, POST_JSON, DEFAULT
     }
 }
