@@ -211,13 +211,17 @@ public class StringUtils {
         return -1;
     }
 
-    public static String base64Decode(String str) {
-        byte[] bytes = Base64.decode(str, Base64.DEFAULT);
+    public static String base64Decode(String str, int flags) {
+        byte[] bytes = Base64.decode(str, flags);
         try {
             return new String(bytes, StandardCharsets.UTF_8);
         } catch (Exception e) {
             return new String(bytes);
         }
+    }
+
+    public static String base64Encode(String str, int flags) {
+        return Base64.encodeToString(str.getBytes(), flags);
     }
 
     public static String escape(String src) {
@@ -359,7 +363,16 @@ public class StringUtils {
                 //.replaceAll("<(script[^>]*>)?[^>]*>|&nbsp;", "")// 删除script标签对和空格转义符
                 .replaceAll("</?[a-zA-Z][^>]*>", "")// 删除标签对
                 .replaceAll("\\s*\\n+\\s*", "\n　　")// 移除空行,并增加段前缩进2个汉字
-                .replaceAll("^[\\n\\s]+", "　　")//移除开头空行,并增加段前缩进2个汉字
-                .replaceAll("[\\n\\s]+$", "");//移除尾部空行
+                .replaceAll("^\\s+|\\s+$", "");//删去首尾空格
+        //.replaceAll("^[\\n\\s]+", "　　")//移除开头空行,并增加段前缩进2个汉字
+        //.replaceAll("[\\n\\s]+$", "");//移除尾部空行
+    }
+
+    public static String formatHtml(String html, boolean doc) {
+        html = formatHtml(html);
+        if (doc) {
+            return html.length() == 0 ? "" : "　　" + html;
+        }
+        return html;
     }
 }
