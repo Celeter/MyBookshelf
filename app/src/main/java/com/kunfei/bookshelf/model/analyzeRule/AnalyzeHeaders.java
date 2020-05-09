@@ -31,8 +31,12 @@ public class AnalyzeHeaders {
             String headers = bookSourceBean.getHttpUserAgent();
             if (!isEmpty(headers)) {
                 if (StringUtils.isJsonObject(headers)) {
-                    Map<String, String> map = new Gson().fromJson(headers, MAP_STRING);
-                    headerMap.putAll(map);
+                    try {
+                        Map<String, String> map = new Gson().fromJson(headers, MAP_STRING);
+                        headerMap.putAll(map);
+                    } catch (Exception e) {
+                        headerMap.put("User-Agent", headers);
+                    }
                 } else {
                     headerMap.put("User-Agent", headers);
                 }

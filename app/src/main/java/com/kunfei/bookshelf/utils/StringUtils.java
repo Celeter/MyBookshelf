@@ -211,13 +211,17 @@ public class StringUtils {
         return -1;
     }
 
-    public static String base64Decode(String str) {
-        byte[] bytes = Base64.decode(str, Base64.DEFAULT);
+    public static String base64Decode(String str, int flags) {
+        byte[] bytes = Base64.decode(str, flags);
         try {
             return new String(bytes, StandardCharsets.UTF_8);
         } catch (Exception e) {
             return new String(bytes);
         }
+    }
+
+    public static String base64Encode(String str, int flags) {
+        return Base64.encodeToString(str.getBytes(), flags);
     }
 
     public static String escape(String src) {

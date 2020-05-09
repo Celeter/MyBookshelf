@@ -1,6 +1,7 @@
 package com.kunfei.bookshelf.model.analyzeRule;
 
 import android.annotation.SuppressLint;
+import android.util.Base64;
 
 import androidx.annotation.Keep;
 
@@ -9,6 +10,7 @@ import com.kunfei.bookshelf.base.BaseModelImpl;
 import com.kunfei.bookshelf.bean.BaseBookBean;
 import com.kunfei.bookshelf.utils.NetworkUtils;
 import com.kunfei.bookshelf.utils.StringUtils;
+import com.kunfei.bookshelf.utils.MD5Utils;
 
 import org.jsoup.nodes.Entities;
 
@@ -214,12 +216,7 @@ public class AnalyzeRule {
     public String getString(String ruleStr, boolean isUrl) throws Exception {
         if (isEmpty(ruleStr)) return null;
         List<SourceRule> ruleList = splitSourceRule(ruleStr);
-        if (isUrl) {
-            return getString(ruleList, true);
-        }
-        else {
-            return getString(ruleList);
-        }
+        return getString(ruleList, isUrl);
     }
 
     public String getString(List<SourceRule> ruleList) throws Exception {
@@ -561,8 +558,28 @@ public class AnalyzeRule {
     /**
      * js实现解码,不能删
      */
-    public String base64Decoder(String base64) {
-        return StringUtils.base64Decode(base64);
+    public String base64Encode(String str, int flags) {
+        return StringUtils.base64Encode(str, flags);
+    }
+
+    public String base64Encode(String str) {
+        return StringUtils.base64Encode(str, Base64.NO_WRAP);
+    }
+
+    public String base64Decode(String base64, int flags) {
+        return StringUtils.base64Decode(base64, flags);
+    }
+
+    public String base64Decode(String base64) {
+        return StringUtils.base64Decode(base64, Base64.NO_WRAP);
+    }
+
+    public String md5Encode(String str) {
+        return MD5Utils.strToMd5By32(str);
+    }
+
+    public String md5Encode16(String str) {
+        return MD5Utils.strToMd5By16(str);
     }
 
     /**
