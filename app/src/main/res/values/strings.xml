@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">悦读</string>
+    <string name="app_name">源仓库</string>
     <string name="bookshelf">书架</string>
     <string name="last_read">最后阅读</string>
     <string name="read_summary">让悦读成为一种习惯。</string>
