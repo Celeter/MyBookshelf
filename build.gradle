@@ -27,7 +27,6 @@ allprojects {
         jcenter()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url 'https://maven.google.com/' }
         maven { url 'https://github.com/psiegman/mvn-repo/raw/master/releases' }
     }
 }
