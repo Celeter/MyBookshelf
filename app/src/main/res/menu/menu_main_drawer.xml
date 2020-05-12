@@ -56,7 +56,6 @@
             android:icon="@drawable/ic_about"
             android:title="@string/about"
             app:tint="@color/tv_text_default" />
-
     </group>
 
 </menu>

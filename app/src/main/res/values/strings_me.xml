@@ -1,6 +1,6 @@
 <resources>
     <string name="default_source">默认书源</string>
-    <string name="import_by_default">默认书源导入</string>
+    <!--string name="import_by_default">默认书源导入</string-->
     <string name="no_default_source">没有可用的默认书源</string>
     <string name="row_0">单倍</string>
     <string name="row_1">双倍</string>
