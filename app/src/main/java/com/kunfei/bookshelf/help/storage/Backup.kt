@@ -42,10 +42,10 @@ object Backup {
     }
 
     fun autoBack() {
-        val lastBackup = MApplication.getConfigPreferences().getLong("lastBackup", 0)
-        if (System.currentTimeMillis() - lastBackup < TimeUnit.DAYS.toMillis(1)) {
-            return
-        }
+//        val lastBackup = MApplication.getConfigPreferences().getLong("lastBackup", 0)
+//        if (System.currentTimeMillis() - lastBackup < TimeUnit.DAYS.toMillis(1)) {
+//            return
+//        }
         val path = MApplication.getConfigPreferences().getString("backupPath", defaultPath)
         if (path == null) {
             backup(MApplication.getInstance(), defaultPath, null, true)
