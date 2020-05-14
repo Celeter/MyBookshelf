@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">閱讀</string>
+    <string name="app_name">悅讀</string>
     <string name="bookshelf">書架</string>
     <string name="last_read">最後閱讀</string>
     <string name="read_summary">讓閱讀成為一種習慣。</string>
