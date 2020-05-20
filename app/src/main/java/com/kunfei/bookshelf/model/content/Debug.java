@@ -55,7 +55,12 @@ public class Debug {
         if (print && Objects.equals(SOURCE_DEBUG_TAG, tag)) {
             if (formatHtml) {
                 if (msg.startsWith("└")) {
-                    msg = "└" + StringUtils.formatHtml(msg.substring(1), true);
+                    msg = msg.substring(1);
+                    if (msg.equals("null")) {
+                        msg = "└null";
+                    } else {
+                        msg = "└" + StringUtils.formatHtml(msg, true);
+                    }
                 } else {
                     msg = StringUtils.formatHtml(msg);
                 }
