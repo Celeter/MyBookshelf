@@ -60,8 +60,11 @@ android {
         }
     }
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
+        // Sets Java compatibility to Java 8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -71,6 +74,7 @@ resourcePlaceholders {
 }
 
 dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
     testImplementation 'junit:junit:4.13'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':basemvplib')
@@ -89,7 +93,7 @@ dependencies {
 
     //androidX
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta7'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.media:media:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -144,7 +148,7 @@ dependencies {
     implementation 'ru.noties.markwon:core:3.1.0'
 
     //epub
-    implementation('nl.siegmann.epublib:epublib-core:3.1') {
+    implementation('com.positiondev.epublib:epublib-core:3.1') {
         exclude group: 'org.slf4j'
         exclude group: 'xmlpull'
     }
