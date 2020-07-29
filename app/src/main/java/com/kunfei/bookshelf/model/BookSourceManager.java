@@ -10,7 +10,6 @@ import com.kunfei.bookshelf.MApplication;
 import com.kunfei.bookshelf.base.BaseModelImpl;
 import com.kunfei.bookshelf.bean.BookSourceBean;
 import com.kunfei.bookshelf.dao.BookSourceBeanDao;
-import com.kunfei.bookshelf.help.SourceHelp;
 import com.kunfei.bookshelf.model.analyzeRule.AnalyzeHeaders;
 import com.kunfei.bookshelf.model.impl.IHttpGetApi;
 import com.kunfei.bookshelf.utils.GsonUtils;
@@ -206,7 +205,7 @@ public class BookSourceManager {
                             try {
                                 new URL(bookSourceBean.getBookSourceUrl());
                                 bookSourceBean.setSerialNumber(0);
-                                SourceHelp.INSTANCE.insertBookSource(bookSourceBean);
+                                addBookSource(bookSourceBean);
                             } catch (Exception exception) {
                                 DbHelper.getDaoSession().getBookSourceBeanDao().queryBuilder()
                                         .where(BookSourceBeanDao.Properties.BookSourceUrl.eq(bookSourceBean.getBookSourceUrl()))
